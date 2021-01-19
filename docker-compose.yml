@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  udacity_traffic_simulation:
+    image: udacity_traffic_simulation
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./src:/app/src
+    network_mode: "host"
+    environment: 
+      - "DISPLAY"
+      - NO_AT_BRIDGE=1

@@ -15,6 +15,12 @@ void Graphics::simulate()
 
         // update graphics
         this->drawTrafficObjects();
+        char keypress = cv::waitKey(33);
+        if (keypress == 'q')
+        {
+            cv::destroyAllWindows();
+            break;
+        }
     }
 }
 
@@ -24,6 +30,7 @@ void Graphics::loadBackgroundImg()
     _windowName = "Concurrency Traffic Simulation";
     cv::namedWindow(_windowName, cv::WINDOW_NORMAL);
 
+    cv::resizeWindow(_windowName, 960, 540);
     // load image and create copy to be used for semi-transparent overlay
     cv::Mat background = cv::imread(_bgFilename);
     _images.push_back(background);         // first element is the original background
@@ -57,8 +64,8 @@ void Graphics::drawTrafficObjects()
             cv::RNG rng(it->getID());
             int b = rng.uniform(0, 255);
             int g = rng.uniform(0, 255);
-            int r = sqrt(255*255 - g*g - r*r); // ensure that length of color vector is always 255
-            cv::Scalar vehicleColor = cv::Scalar(b,g,r);
+            int r = sqrt(255 * 255 - g * g - r * r); // ensure that length of color vector is always 255
+            cv::Scalar vehicleColor = cv::Scalar(b, g, r);
             cv::circle(_images.at(1), cv::Point2d(posx, posy), 50, vehicleColor, -1);
         }
     }
@@ -68,5 +75,4 @@ void Graphics::drawTrafficObjects()
 
     // display background and overlay image
     cv::imshow(_windowName, _images.at(2));
-    cv::waitKey(33);
 }

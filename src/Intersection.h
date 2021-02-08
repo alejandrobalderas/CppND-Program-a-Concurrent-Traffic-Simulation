@@ -55,7 +55,7 @@ private:
     WaitingVehicles _waitingVehicles;              // list of all vehicles and their associated promises waiting to enter the intersection
     bool _isBlocked;                               // flag indicating wether the intersection is blocked by a vehicle
 
-    TrafficLight _trafficLights;
+    TrafficLight _trafficLight;
 };
 
 #endif
